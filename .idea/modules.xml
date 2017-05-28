@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ScrumTeam.iml" filepath="$PROJECT_DIR$/ScrumTeam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrum-team.iml" filepath="$PROJECT_DIR$/scrum-team.iml" />
     </modules>
   </component>
 </project>
