@@ -1,5 +1,9 @@
 package brothersideas.mx.scrumteam;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +23,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import brothersideas.mx.scrumteam.models.Project;
+import brothersideas.mx.scrumteam.utils.ReadProyectos;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public ProjectOwnerFragment fragmentProjectOwner;
     public DeveloperFragment fragmentDeveloper;
     private static ViewPagerAdapter adapter;
+    public static String idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setText("OWNER");
         tabLayout.getTabAt(2).setText("DEVELOPER");
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        idUsuario = settings.getString("id", "");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,17 +111,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = settings.edit();
+                editor.remove("email");
+                editor.remove("password");
+                editor.apply();
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivity(i);
+                MainActivity.super.onPause();
+                finish();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**

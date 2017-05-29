@@ -1,42 +1,75 @@
 package brothersideas.mx.scrumteam.models;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Created by dsantillanes on 27/05/17.
  */
 
 public class Project {
 
-    private String nombre;
-    private String status;
-    private String sprints;
+    private String nombreProyecto;
+    private String descripcionProy;
+    private String scrumMaster;
+    private String proyectManager;
+    private ArrayList<Usuario> desarrolladores;
+    private Boolean abierto;
 
-    public Project(String nombre, String status, String sprints) {
-        this.nombre = nombre;
-        this.status = status;
-        this.sprints = sprints;
+    public Project(String nombreProyecto, String descripcionProy, String scrumMaster, String proyectManager, ArrayList<Usuario> desarrolladores, Boolean abierto) {
+        this.nombreProyecto = nombreProyecto;
+        this.descripcionProy = descripcionProy;
+        this.scrumMaster = scrumMaster;
+        this.proyectManager = proyectManager;
+        this.desarrolladores = desarrolladores;
+        this.abierto = abierto;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreProyecto() {
+        return nombreProyecto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDescripcionProy() {
+        return descripcionProy;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDescripcionProy(String descripcionProy) {
+        this.descripcionProy = descripcionProy;
     }
 
-    public String getSprints() {
-        return sprints;
+    public String getScrumMaster() {
+        return scrumMaster;
     }
 
-    public void setSprints(String sprints) {
-        this.sprints = sprints;
+    public void setScrumMaster(String scrumMaster) {
+        this.scrumMaster = scrumMaster;
+    }
+
+    public String getProyectManager() {
+        return proyectManager;
+    }
+
+    public void setProyectManager(String proyectManager) {
+        this.proyectManager = proyectManager;
+    }
+
+    public ArrayList<Usuario> getDesarrolladores() {
+        return desarrolladores;
+    }
+
+    public void setDesarrolladores(ArrayList<Usuario> desarrolladores) {
+        this.desarrolladores = desarrolladores;
+    }
+
+    public Boolean getAbierto() {
+        return abierto;
+    }
+
+    public void setAbierto(Boolean abierto) {
+        this.abierto = abierto;
     }
 }

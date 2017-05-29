@@ -60,7 +60,11 @@
         android:hint="Password"
         android:textColorHint="@android:color/background_light"
         android:textColorLink="@android:color/background_light"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:imeActionId="@+id/login"
+        android:imeActionLabel="Entrar"
+        android:imeOptions="actionUnspecified"
+        />
 
     <Button
         android:text="Sign In"

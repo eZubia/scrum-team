@@ -48,8 +48,8 @@ public class ScrumAdapter extends RecyclerView.Adapter<ScrumAdapter.ScrumViewHol
 
     @Override
     public void onBindViewHolder(ScrumViewHolder viewHolder, int i) {
-        viewHolder.nombre.setText(items.get(i).getNombre());
-        viewHolder.status.setText(items.get(i).getStatus());
-        viewHolder.sprints.setText(items.get(i).getSprints());
+        viewHolder.nombre.setText(items.get(i).getNombreProyecto());
+        viewHolder.status.setText(items.get(i).getAbierto() ? "Vigente" : "Finalizado");
+        viewHolder.sprints.setText("12");
     }
 }

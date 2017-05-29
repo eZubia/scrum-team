@@ -2,19 +2,28 @@ package brothersideas.mx.scrumteam;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import brothersideas.mx.scrumteam.models.Project;
+import brothersideas.mx.scrumteam.utils.ReadProyectos;
 
 
 public class ScrumFragment extends Fragment {
@@ -32,11 +41,7 @@ public class ScrumFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_scrum, container, false);
         // Inicializar Animes
-        List items = new ArrayList();
-
-        items.add(new Project("ECO", "VIGENTE", "5"));
-        items.add(new Project("ECO MOVIL", "VIGENTE", "1"));
-        items.add(new Project("SDG", "VIGENTE", "20"));
+        List items = getProyectosScrum(MainActivity.idUsuario);
 
 // Obtener el Recycler
         recycler = (RecyclerView) rootView.findViewById(R.id.recicladorScrum);
@@ -67,6 +72,34 @@ public class ScrumFragment extends Fragment {
 
             }
         }));
+    }
+
+    public ArrayList<Project> getProyectosScrum(String idUsuario){
+        ConnectServerScrumMaster server = new ConnectServerScrumMaster();
+        server.execute(idUsuario);
+        ArrayList<Project> proyectos = new ArrayList<>();
+
+        try {
+            String json = server.get();
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<Project>>(){}.getType();
+            proyectos = gson.fromJson(json, listType);
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.e("Error", "No pude leer el JSON.");
+        }
+
+        return proyectos;
+    }
+
+    public class ConnectServerScrumMaster extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... parameters) {
+            String json = ReadProyectos.findProyectosScrumMaster(parameters[0]);
+            System.out.println("json = " + json);
+            return json;
+
+        }
     }
 
 }

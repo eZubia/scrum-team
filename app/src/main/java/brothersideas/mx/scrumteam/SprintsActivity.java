@@ -35,6 +35,9 @@ public class SprintsActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private static ViewPagerAdapter adapter;
+    public SprintFragment sprintFragment;
+    public BacklogFragment backlogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +52,14 @@ public class SprintsActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+        setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        tabLayout.getTabAt(0).setText("BACKLOG");
+        tabLayout.getTabAt(1).setText("SPRINTS");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +70,15 @@ public class SprintsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        sprintFragment = new SprintFragment();
+        backlogFragment = new BacklogFragment();
+        adapter.addFrag(backlogFragment);
+        adapter.addFrag(sprintFragment);
+        viewPager.setAdapter(adapter);
     }
 
 
