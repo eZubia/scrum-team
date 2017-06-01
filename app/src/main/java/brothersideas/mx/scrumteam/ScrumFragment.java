@@ -30,6 +30,7 @@ public class ScrumFragment extends Fragment {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private List<Project> items_proyects;
 
     public ScrumFragment() {
         // Required empty public constructor
@@ -41,7 +42,7 @@ public class ScrumFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_scrum, container, false);
         // Inicializar Animes
-        List items = getProyectosScrum(MainActivity.idUsuario);
+        items_proyects = getProyectosScrum(MainActivity.idUsuario);
 
 // Obtener el Recycler
         recycler = (RecyclerView) rootView.findViewById(R.id.recicladorScrum);
@@ -52,7 +53,7 @@ public class ScrumFragment extends Fragment {
         recycler.setLayoutManager(lManager);
 
 // Crear un nuevo adaptador
-        adapter = new ScrumAdapter(items);
+        adapter = new ScrumAdapter(items_proyects);
         recycler.setAdapter(adapter);
         implementRecyclerViewClickListeners();
 
@@ -63,7 +64,9 @@ public class ScrumFragment extends Fragment {
         recycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recycler, new RecyclerClick_Listener() {
             @Override
             public void onClick(View view, int position) {
-               Intent i = new Intent(getContext(), SprintsActivity.class);
+                Project project = items_proyects.get(position);
+                MainActivity.idProyecto = project.get_id();
+                Intent i = new Intent(getContext(), SprintsActivity.class);
                 startActivity(i);
             }
 

@@ -132,10 +132,13 @@ public class SprintsActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_sprints, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            if(getArguments().getInt(ARG_SECTION_NUMBER)==1){
+                View rootView = inflater.inflate(R.layout.fragment_backlog, container, false);
+                return rootView;
+            }else{
+                View rootView = inflater.inflate(R.layout.fragment_sprints, container, false);
+                return rootView;
+            }
         }
     }
 

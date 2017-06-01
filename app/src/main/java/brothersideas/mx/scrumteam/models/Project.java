@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class Project {
 
+    private String _id;
     private String nombreProyecto;
     private String descripcionProy;
     private String scrumMaster;
@@ -23,6 +24,14 @@ public class Project {
         this.proyectManager = proyectManager;
         this.desarrolladores = desarrolladores;
         this.abierto = abierto;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getNombreProyecto() {

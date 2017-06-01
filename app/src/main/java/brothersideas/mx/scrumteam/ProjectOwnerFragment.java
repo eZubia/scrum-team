@@ -28,6 +28,7 @@ public class ProjectOwnerFragment extends Fragment {
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
+    private List<Project> items_proyects;
 
     public ProjectOwnerFragment() {
         // Required empty public constructor
@@ -39,7 +40,7 @@ public class ProjectOwnerFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_project_owner, container, false);
         // Inicializar Animes
-        List items = getProyectosManager(MainActivity.idUsuario);
+        items_proyects = getProyectosManager(MainActivity.idUsuario);
 
 // Obtener el Recycler
         recycler = (RecyclerView) rootView.findViewById(R.id.recicladorProjectOwner);
@@ -50,7 +51,7 @@ public class ProjectOwnerFragment extends Fragment {
         recycler.setLayoutManager(lManager);
 
 // Crear un nuevo adaptador
-        adapter = new ScrumAdapter(items);
+        adapter = new ScrumAdapter(items_proyects);
         recycler.setAdapter(adapter);
         implementRecyclerViewClickListeners();
 
@@ -61,8 +62,10 @@ public class ProjectOwnerFragment extends Fragment {
         recycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recycler, new RecyclerClick_Listener() {
             @Override
             public void onClick(View view, int position) {
-//                Intent i = new Intent(getContext(), SprintsActivity.class);
-//                startActivity(i);
+                Project project = items_proyects.get(position);
+                MainActivity.idProyecto = project.get_id();
+                Intent i = new Intent(getContext(), SprintsActivity.class);
+                startActivity(i);
             }
 
             @Override

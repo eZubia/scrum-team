@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public DeveloperFragment fragmentDeveloper;
     private static ViewPagerAdapter adapter;
     public static String idUsuario;
+    public static String idProyecto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
